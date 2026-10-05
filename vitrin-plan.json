@@ -1,0 +1,296 @@
+{
+  "projects": [
+    {
+      "id": "vitrin",
+      "name": "Vitrin",
+      "entries": [
+        {
+          "id": "vitrin-2026-10-05-post",
+          "date": "2026-10-05",
+          "type": "post",
+          "desc": "“İnternetteki Dijital Vitrininiz” postu — Vitrin'in ne olduğunu ve işletmeler için ne sunduğunu anlatan ilk marka paylaşımı.",
+          "status": 0,
+          "views": 0,
+          "likes": 0,
+          "comments": 0,
+          "notes": ""
+        },
+        {
+          "id": "vitrin-2026-10-06-story",
+          "date": "2026-10-06",
+          "type": "story",
+          "desc": "“İşletmenizin internette görünürlüğünde en önemli şey sizce ne?” Story — Kısa anket; ilk postu destekleyen etkileşim içeriği.",
+          "status": 0,
+          "views": 0,
+          "likes": 0,
+          "comments": 0,
+          "notes": ""
+        },
+        {
+          "id": "vitrin-2026-10-07-post",
+          "date": "2026-10-07",
+          "type": "post",
+          "desc": "“10.000 TL'ye Profesyonel Web Sitesi” postu — Fiyatı saklamadan, Vitrin'in temel teklifini net biçimde gösteren sade satış paylaşımı.",
+          "status": 0,
+          "views": 0,
+          "likes": 0,
+          "comments": 0,
+          "notes": ""
+        },
+        {
+          "id": "vitrin-2026-10-08-story",
+          "date": "2026-10-08",
+          "type": "story",
+          "desc": "“Web sitesi yaptırırken sizin için en önemli konu hangisi?” Story — Fiyat / Tasarım / Güven / Kullanım kolaylığı gibi seçeneklerle anket.",
+          "status": 0,
+          "views": 0,
+          "likes": 0,
+          "comments": 0,
+          "notes": ""
+        },
+        {
+          "id": "vitrin-2026-10-09-post",
+          "date": "2026-10-09",
+          "type": "post",
+          "desc": "“10.000 TL'ye Neler Dahil?” carousel postu — Paketin kapsamını açık biçimde anlatan fiyat/teklif içeriği.",
+          "status": 0,
+          "views": 0,
+          "likes": 0,
+          "comments": 0,
+          "notes": ""
+        },
+        {
+          "id": "vitrin-2026-10-10-story",
+          "date": "2026-10-10",
+          "type": "story",
+          "desc": "“Web sitesi yaptırmakla ilgili merak ettiğiniz bir şey var mı?” Story — Soru kutusu. Gelen sorular sonraki içerikler için saklanır.",
+          "status": 0,
+          "views": 0,
+          "likes": 0,
+          "comments": 0,
+          "notes": ""
+        },
+        {
+          "id": "vitrin-2026-10-11-post",
+          "date": "2026-10-11",
+          "type": "post",
+          "desc": "İyizico ile güvenli alışveriş postu",
+          "status": 0,
+          "views": 0,
+          "likes": 0,
+          "comments": 0,
+          "notes": "Plandaki açıklama eksikti, içeriği buraya yaz."
+        },
+        {
+          "id": "vitrin-2026-10-12-post",
+          "date": "2026-10-12",
+          "type": "post",
+          "desc": "“Web Sitenizde İlk 5 Saniye” carousel postu — Ziyaretçinin işletmenin ne yaptığını ve ne sunduğunu hızlıca anlayabilmesi üzerine eğitici içerik.",
+          "status": 0,
+          "views": 0,
+          "likes": 0,
+          "comments": 0,
+          "notes": ""
+        },
+        {
+          "id": "vitrin-2026-10-13-story",
+          "date": "2026-10-13",
+          "type": "story",
+          "desc": "“İlk bakışta anlayabiliyor musunuz?” Story — Örnek bir web sayfası üzerinden Evet / Pek değil anketi. Bir önceki postun devamı.",
+          "status": 0,
+          "views": 0,
+          "likes": 0,
+          "comments": 0,
+          "notes": ""
+        },
+        {
+          "id": "vitrin-2026-10-14-post",
+          "date": "2026-10-14",
+          "type": "post",
+          "desc": "“Müşteriniz Sizi Google'da Arıyor. Sonra?” carousel postu — Google'da işletmeyi bulan potansiyel müşterinin daha fazla bilgi ararken yaşayacağı yolculuk üzerinden web sitesi ihtiyacını gösterir.",
+          "status": 0,
+          "views": 0,
+          "likes": 0,
+          "comments": 0,
+          "notes": ""
+        },
+        {
+          "id": "vitrin-2026-10-15-story",
+          "date": "2026-10-15",
+          "type": "story",
+          "desc": "“Bir işletmeyi araştırırken nerelere bakarsınız?” Story — Google, Instagram, web sitesi vb. seçeneklerle etkileşim.",
+          "status": 0,
+          "views": 0,
+          "likes": 0,
+          "comments": 0,
+          "notes": ""
+        },
+        {
+          "id": "vitrin-2026-10-16-post",
+          "date": "2026-10-16",
+          "type": "post",
+          "desc": "“Instagram Hesabınız Web Sitesinin Yerine Geçer mi?” carousel postu — Instagram ve web sitesini rakip göstermeden ikisinin farklı görevlerini anlatır.",
+          "status": 0,
+          "views": 0,
+          "likes": 0,
+          "comments": 0,
+          "notes": ""
+        },
+        {
+          "id": "vitrin-2026-10-17-story",
+          "date": "2026-10-17",
+          "type": "story",
+          "desc": "Instagram mı, web sitesi mi? Story — Çalışma saatleri, hizmetleri inceleme, işletmeyle iletişim gibi farklı senaryolar üzerinden mini anketler.",
+          "status": 0,
+          "views": 0,
+          "likes": 0,
+          "comments": 0,
+          "notes": ""
+        },
+        {
+          "id": "vitrin-2026-10-19-post",
+          "date": "2026-10-19",
+          "type": "post",
+          "desc": "“İyi Bir Ana Sayfada Ne Olmalı?” carousel postu — İşletmenin ne yaptığı, hizmetleri, güven unsurları ve ziyaretçinin sonraki adımı gibi temel noktaları anlatır.",
+          "status": 0,
+          "views": 0,
+          "likes": 0,
+          "comments": 0,
+          "notes": ""
+        },
+        {
+          "id": "vitrin-2026-10-20-story",
+          "date": "2026-10-20",
+          "type": "story",
+          "desc": "“Web sitenizi hızlıca kontrol edin” Story — Ne yaptığınız anlaşılıyor mu? Telefon kolay bulunuyor mu? Çalışma saatleri var mı? gibi kısa kontrol soruları.",
+          "status": 0,
+          "views": 0,
+          "likes": 0,
+          "comments": 0,
+          "notes": ""
+        },
+        {
+          "id": "vitrin-2026-10-21-post",
+          "date": "2026-10-21",
+          "type": "post",
+          "desc": "“Web Sitesi Sadece Güzel Görünmek İçin Değildir” carousel postu — Estetiğin yanında anlaşılabilirlik, güven, bilgiye erişim ve yönlendirme konularını işler.",
+          "status": 0,
+          "views": 0,
+          "likes": 0,
+          "comments": 0,
+          "notes": ""
+        },
+        {
+          "id": "vitrin-2026-10-22-story",
+          "date": "2026-10-22",
+          "type": "story",
+          "desc": "“Sizce hangisi daha önemli?” Story — Güzel görünmesi / Kolay kullanılabilmesi gibi karşılaştırmalı anket.",
+          "status": 0,
+          "views": 0,
+          "likes": 0,
+          "comments": 0,
+          "notes": ""
+        },
+        {
+          "id": "vitrin-2026-10-23-post",
+          "date": "2026-10-23",
+          "type": "post",
+          "desc": "“Web Sitesi Yaptırmadan Önce Sorulması Gereken 5 Soru” carousel postu — Fiyat kapsamı, mobil uyumluluk, domain/hosting, yayın sonrası destek ve sonradan özellik eklenmesi gibi satın alma kriterlerini öğretir.",
+          "status": 0,
+          "views": 0,
+          "likes": 0,
+          "comments": 0,
+          "notes": ""
+        },
+        {
+          "id": "vitrin-2026-10-24-story",
+          "date": "2026-10-24",
+          "type": "story",
+          "desc": "“Web sitesi yaptırırken en çok neyi merak ediyorsunuz?” Story — Soru kutusu.",
+          "status": 0,
+          "views": 0,
+          "likes": 0,
+          "comments": 0,
+          "notes": ""
+        },
+        {
+          "id": "vitrin-2026-10-26-post",
+          "date": "2026-10-26",
+          "type": "post",
+          "desc": "“Web Siteniz Telefonda Nasıl Görünüyor?” carousel postu — Mobil kullanım, okunabilirlik, menü ve iletişim kolaylığı üzerine eğitim.",
+          "status": 0,
+          "views": 0,
+          "likes": 0,
+          "comments": 0,
+          "notes": ""
+        },
+        {
+          "id": "vitrin-2026-10-27-story",
+          "date": "2026-10-27",
+          "type": "story",
+          "desc": "“Web sitenizi en son telefondan kontrol ettiniz mi?” Story — Evet / Hayır anketi ve 26 Ekim gönderisine yönlendirme.",
+          "status": 0,
+          "views": 0,
+          "likes": 0,
+          "comments": 0,
+          "notes": ""
+        },
+        {
+          "id": "vitrin-2026-10-28-post",
+          "date": "2026-10-28",
+          "type": "post",
+          "desc": "“Müşteriniz Size Ulaşmaya Karar Verdi. Onu Aratmayın.” carousel postu — Telefon, WhatsApp, adres, harita, çalışma saatleri ve iletişim seçeneklerinin kolay bulunmasının önemini anlatır.",
+          "status": 0,
+          "views": 0,
+          "likes": 0,
+          "comments": 0,
+          "notes": ""
+        },
+        {
+          "id": "vitrin-2026-10-29-post",
+          "date": "2026-10-29",
+          "type": "post",
+          "desc": "29 Ekim Cumhuriyet Bayramı postu — Vitrin kimliğine uygun, sade bir kutlama. Satış mesajı kullanılmaz.",
+          "status": 0,
+          "views": 0,
+          "likes": 0,
+          "comments": 0,
+          "notes": ""
+        },
+        {
+          "id": "vitrin-2026-10-29-story",
+          "date": "2026-10-29",
+          "type": "story",
+          "desc": "29 Ekim Cumhuriyet Bayramı Story — Vitrin kimliğine uygun, sade bir kutlama. Satış mesajı kullanılmaz.",
+          "status": 0,
+          "views": 0,
+          "likes": 0,
+          "comments": 0,
+          "notes": ""
+        },
+        {
+          "id": "vitrin-2026-10-30-story",
+          "date": "2026-10-30",
+          "type": "story",
+          "desc": "“Kasım'da hangisini daha çok görmek istersiniz?” Story — Web sitesi ipuçları / Dijital görünürlük gibi seçeneklerle Kasım için geri bildirim toplama.",
+          "status": 0,
+          "views": 0,
+          "likes": 0,
+          "comments": 0,
+          "notes": ""
+        },
+        {
+          "id": "vitrin-2026-10-31-story",
+          "date": "2026-10-31",
+          "type": "story",
+          "desc": "“Web sitesi hakkında merak ettiğiniz bir şey var mı?” Story — Ayın son soru kutusu. Gelen cevaplar Kasım planına aktarılır.",
+          "status": 0,
+          "views": 0,
+          "likes": 0,
+          "comments": 0,
+          "notes": "Gelen cevapları Kasım planına aktar."
+        }
+      ]
+    }
+  ]
+}

@@ -1,5 +1,5 @@
-const CACHE = "instagram-takip-v1";
-const ASSETS = ["./", "./index.html", "./manifest.webmanifest", "./icon-192.png", "./icon-512.png", "./apple-touch-icon.png"];
+const CACHE = "instagram-takip-v2";
+const ASSETS = ["./", "./index.html", "./manifest.webmanifest", "./vitrin-plan.json", "./icon-192.png", "./icon-512.png", "./apple-touch-icon.png"];
 
 self.addEventListener("install", (e) => {
   e.waitUntil(caches.open(CACHE).then((c) => c.addAll(ASSETS)));

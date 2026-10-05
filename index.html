@@ -224,10 +224,11 @@ function render() {
       <h1>Instagram Takip</h1>
       <p>İlk projeni oluştur (örn. vitrinweb) ve haftalık / aylık içerik planına başla.</p>
       <form class="new-proj" id="firstForm"><input type="text" id="firstName" placeholder="Proje adı" maxlength="40" required><button class="btn primary">Oluştur</button></form>
-      ${state.projects.length ? '<div class="link-row" style="justify-content:center;border:0"><button id="openProj">Projelerim</button></div>' : ""}
+      <div class="link-row" style="justify-content:center;border:0"><button id="readyPlan">Vitrin planını yükle (Ekim 2026)</button>${state.projects.length ? '<button id="openProj">Projelerim</button>' : ""}</div>
     </div>`;
     $("firstForm").onsubmit = (e) => { e.preventDefault(); createProject($("firstName").value); };
     if ($("openProj")) $("openProj").onclick = openProjects;
+    $("readyPlan").onclick = loadReadyPlan;
     return;
   }
 
@@ -427,8 +428,9 @@ function openMenu() {
     <div class="link-row">
       <button id="exp">Yedek al (dosya)</button>
       <button id="imp">Yedekten yükle</button>
+      <button id="plan">Vitrin planını yükle (Ekim 2026)</button>
     </div>
-    <p style="color:var(--muted);font-size:12.5px;margin:14px 0 0">Veriler yalnızca bu telefonda saklanır. Telefon değiştirirken veya tarayıcı verilerini silmeden önce yedek al.</p>
+    <p style="color:var(--muted);font-size:12.5px;margin:14px 0 0">Veriler yalnızca bu telefonda saklanır. Telefon değiştirirken veya tarayıcı verilerini silmeden önce yedek al. Yedeği yüklemek mevcut kayıtlarını silmez, eksikleri ekler.</p>
     <input type="file" id="file" accept="application/json,.json" hidden>`);
   $("x").onclick = closeSheet;
   $("rename").onclick = () => { const n = (prompt("Proje adı", p.name) || "").trim(); if (n) { p.name = n; save(); closeSheet(); render(); } };
@@ -443,14 +445,38 @@ function openMenu() {
     setTimeout(() => URL.revokeObjectURL(a.href), 1000);
   };
   $("imp").onclick = () => $("file").click();
+  $("plan").onclick = loadReadyPlan;
   $("file").onchange = async (ev) => {
     try {
       const data = JSON.parse(await ev.target.files[0].text());
       if (!Array.isArray(data.projects)) throw 0;
-      if (!confirm("Mevcut tüm veriler yedektekiyle değiştirilsin mi?")) return;
-      state.projects = data.projects; state.activeId = data.projects[0]?.id || null; save(); closeSheet(); render(); toast("Yedek yüklendi");
+      const added = mergeProjects(data.projects);
+      save(); closeSheet(); render(); toast(`${added} içerik eklendi`);
     } catch (e) { toast("Geçersiz yedek dosyası"); }
   };
+}
+
+/* ---------- Plan / yedek birleştirme ---------- */
+// Var olan projelere ve kayıtlara dokunmaz; yalnızca eksik olanları ekler.
+function mergeProjects(incoming) {
+  let added = 0;
+  for (const ip of incoming) {
+    let p = state.projects.find((x) => x.id === ip.id);
+    if (!p) { p = { id: ip.id, name: ip.name, entries: [] }; state.projects.push(p); }
+    const have = new Set(p.entries.map((e) => e.id));
+    for (const e of ip.entries || []) if (!have.has(e.id)) { p.entries.push(e); added++; }
+  }
+  if (!project() && state.projects.length) state.activeId = state.projects[0].id;
+  return added;
+}
+async function loadReadyPlan() {
+  try {
+    const res = await fetch("vitrin-plan.json", { cache: "no-cache" });
+    const data = await res.json();
+    const added = mergeProjects(data.projects);
+    state.activeId = data.projects[0].id; state.view = "week"; state.cursor = state.selected = data.projects[0].entries[0].date;
+    save(); closeSheet(); render(); toast(added ? `${added} içerik eklendi` : "Plan zaten yüklü");
+  } catch (e) { toast("Plan yüklenemedi (internet?)"); }
 }
 
 /* ---------- Başlat ---------- */
