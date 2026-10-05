@@ -1,0 +1,462 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Instagram Takip</title>
+<meta name="theme-color" content="#4f46e5">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Instagram Takip">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/png" href="icon-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<style>
+:root {
+  --bg: #f6f7fb; --card: #ffffff; --text: #151a2d; --muted: #6b7288; --line: #e7e9f2;
+  --accent: #4f46e5; --accent-soft: #eef0ff; --danger: #e5484d;
+  --s0: #8b92a8; --s0b: #eceef4;      /* başlanmadı */
+  --s1: #b7791f; --s1b: #fdf3dc;      /* tasarlandı */
+  --s2: #2563eb; --s2b: #e3edff;      /* planlandı */
+  --s3: #15803d; --s3b: #dff5e6;      /* paylaşıldı */
+  --shadow: 0 1px 2px rgba(20,24,45,.05), 0 4px 14px rgba(20,24,45,.05);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0f1220; --card: #181c30; --text: #eef0fa; --muted: #98a0ba; --line: #272c46;
+    --accent: #818cf8; --accent-soft: #232850; --danger: #ff6b70;
+    --s0: #9aa2bb; --s0b: #262b43; --s1: #f5c26b; --s1b: #3a3017;
+    --s2: #7aa7ff; --s2b: #1c2b52; --s3: #5fd68a; --s3b: #173626;
+    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 4px 14px rgba(0,0,0,.25);
+  }
+}
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+html, body { margin: 0; }
+body {
+  background: var(--bg); color: var(--text);
+  font: 15px/1.45 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  padding-bottom: calc(96px + env(safe-area-inset-bottom));
+}
+button { font: inherit; color: inherit; cursor: pointer; border: 0; background: none; }
+.wrap { max-width: 640px; margin: 0 auto; padding: 0 16px; }
+
+/* Üst bar */
+header {
+  position: sticky; top: 0; z-index: 10;
+  background: color-mix(in srgb, var(--bg) 88%, transparent);
+  backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+  padding-top: max(env(safe-area-inset-top), 10px);
+  padding-bottom: 10px; border-bottom: 1px solid var(--line);
+}
+.top { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.proj-btn {
+  display: flex; align-items: center; gap: 8px; font-weight: 700; font-size: 18px;
+  padding: 6px 10px 6px 4px; border-radius: 12px; min-width: 0;
+}
+.proj-btn .dot { width: 30px; height: 30px; border-radius: 9px; background: var(--accent); color: #fff;
+  display: grid; place-items: center; font-size: 14px; flex: none; }
+.proj-btn span.name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.icon-btn { width: 36px; height: 36px; border-radius: 10px; display: grid; place-items: center; color: var(--muted); }
+.icon-btn:active { background: var(--line); }
+.seg { display: flex; background: var(--line); border-radius: 12px; padding: 3px; gap: 3px; }
+.seg button { flex: 1; padding: 7px 10px; border-radius: 9px; font-weight: 600; color: var(--muted); }
+.seg button.on { background: var(--card); color: var(--text); box-shadow: var(--shadow); }
+.header-seg { margin-top: 10px; }
+.nav { display: flex; align-items: center; justify-content: space-between; margin: 14px 0 4px; }
+.nav h2 { margin: 0; font-size: 17px; text-align: center; flex: 1; }
+.nav small { display: block; color: var(--muted); font-weight: 500; font-size: 12px; }
+.today-btn { font-size: 13px; font-weight: 600; color: var(--accent); padding: 6px 10px; border-radius: 9px; }
+
+/* Özet */
+.stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin: 12px 0; }
+.stat { background: var(--card); border-radius: 14px; padding: 10px 6px; text-align: center; box-shadow: var(--shadow); }
+.stat b { display: block; font-size: 18px; letter-spacing: -.3px; }
+.stat span { font-size: 11px; color: var(--muted); }
+
+/* Gün / giriş kartları */
+.day { margin-top: 16px; }
+.day-head { display: flex; align-items: center; justify-content: space-between; padding: 0 4px 6px; }
+.day-head .t { font-weight: 700; }
+.day-head .t small { color: var(--muted); font-weight: 500; margin-left: 6px; }
+.day.today .day-head .t { color: var(--accent); }
+.add-mini { color: var(--accent); font-size: 13px; font-weight: 600; padding: 4px 8px; border-radius: 8px; }
+.empty-day { border: 1.5px dashed var(--line); border-radius: 14px; padding: 12px; color: var(--muted); font-size: 13px; text-align: center; }
+.entry { background: var(--card); border-radius: 16px; padding: 12px 14px; margin-bottom: 8px; box-shadow: var(--shadow); display: block; width: 100%; text-align: left; }
+.entry:active { transform: scale(.992); }
+.e-top { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+.type { font-size: 11.5px; font-weight: 700; padding: 3px 8px; border-radius: 7px; background: var(--accent-soft); color: var(--accent); }
+.type.story { background: #fde7f3; color: #be185d; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .type.story { background: #3b1830; color: #f472b6; } }
+.pill { margin-left: auto; font-size: 12px; font-weight: 700; padding: 4px 10px; border-radius: 99px; }
+.st0 { background: var(--s0b); color: var(--s0); } .st1 { background: var(--s1b); color: var(--s1); }
+.st2 { background: var(--s2b); color: var(--s2); } .st3 { background: var(--s3b); color: var(--s3); }
+.e-desc { margin: 0; white-space: pre-wrap; word-break: break-word; }
+.e-desc.none { color: var(--muted); font-style: italic; }
+.e-metrics { display: flex; gap: 16px; margin-top: 9px; color: var(--muted); font-size: 13px; font-weight: 600; }
+.e-metrics span { display: inline-flex; align-items: center; gap: 5px; }
+.e-note { margin-top: 8px; font-size: 12.5px; color: var(--muted); padding-top: 8px; border-top: 1px solid var(--line); white-space: pre-wrap; }
+svg.i { width: 15px; height: 15px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+/* Aylık takvim */
+.cal { background: var(--card); border-radius: 18px; padding: 10px; box-shadow: var(--shadow); margin-top: 8px; }
+.cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px; }
+.dow { text-align: center; font-size: 11px; color: var(--muted); font-weight: 600; padding: 4px 0 6px; }
+.cell { aspect-ratio: 1 / 1.05; border-radius: 12px; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; padding-top: 6px; gap: 4px; font-weight: 600; font-size: 14px; }
+.cell.out { opacity: .3; }
+.cell.today .n { background: var(--accent); color: #fff; }
+.cell.sel { background: var(--accent-soft); outline: 2px solid var(--accent); outline-offset: -2px; }
+.cell .n { width: 26px; height: 26px; display: grid; place-items: center; border-radius: 50%; }
+.dots { display: flex; gap: 3px; height: 6px; }
+.dots i { width: 6px; height: 6px; border-radius: 50%; display: block; }
+.d0 { background: var(--s0); } .d1 { background: var(--s1); } .d2 { background: var(--s2); } .d3 { background: var(--s3); }
+.legend { display: flex; flex-wrap: wrap; gap: 6px 14px; margin: 10px 4px 0; font-size: 12px; color: var(--muted); }
+.legend span { display: inline-flex; align-items: center; gap: 5px; }
+
+.fab {
+  position: fixed; right: max(18px, calc(50% - 320px + 16px)); bottom: calc(22px + env(safe-area-inset-bottom));
+  height: 56px; padding: 0 22px 0 18px; border-radius: 28px; background: var(--accent); color: #fff;
+  font-weight: 700; display: flex; align-items: center; gap: 8px; box-shadow: 0 8px 22px rgba(79,70,229,.4); z-index: 20;
+}
+.fab svg { width: 22px; height: 22px; stroke: #fff; fill: none; stroke-width: 2.4; stroke-linecap: round; }
+
+/* Alt sayfa (modal) */
+.overlay { position: fixed; inset: 0; background: rgba(10,12,25,.45); z-index: 50; display: none; align-items: flex-end; justify-content: center; }
+.overlay.open { display: flex; }
+.sheet { background: var(--card); width: 100%; max-width: 640px; max-height: 92vh; overflow-y: auto; border-radius: 24px 24px 0 0;
+  padding: 18px 18px calc(18px + env(safe-area-inset-bottom)); animation: up .22s ease-out; }
+@keyframes up { from { transform: translateY(40px); opacity: 0; } to { transform: none; opacity: 1; } }
+.sheet h3 { margin: 0 0 14px; font-size: 18px; display: flex; justify-content: space-between; align-items: center; }
+label.f { display: block; font-size: 12px; font-weight: 700; color: var(--muted); margin: 14px 0 6px; text-transform: uppercase; letter-spacing: .4px; }
+input[type=text], input[type=date], input[type=number], textarea {
+  width: 100%; font: inherit; color: var(--text); background: var(--bg); border: 1.5px solid transparent;
+  border-radius: 12px; padding: 11px 12px; outline: none; -webkit-appearance: none; appearance: none;
+}
+input:focus, textarea:focus { border-color: var(--accent); background: var(--card); }
+textarea { resize: vertical; min-height: 84px; }
+.row3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.row3 label.f { margin-top: 0; }
+.status-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
+.status-grid button { padding: 11px; border-radius: 12px; font-weight: 700; border: 2px solid transparent; }
+.status-grid button.on { border-color: currentColor; }
+.actions { display: flex; gap: 10px; margin-top: 20px; }
+.btn { flex: 1; padding: 14px; border-radius: 14px; font-weight: 700; background: var(--line); }
+.btn.primary { background: var(--accent); color: #fff; }
+.btn.danger { background: transparent; color: var(--danger); flex: 0 0 auto; padding: 14px 16px; }
+.proj-item { display: flex; align-items: center; gap: 10px; padding: 12px; border-radius: 14px; background: var(--bg); margin-bottom: 8px; width: 100%; text-align: left; }
+.proj-item.on { outline: 2px solid var(--accent); background: var(--accent-soft); }
+.proj-item .dot { width: 34px; height: 34px; border-radius: 10px; background: var(--accent); color: #fff; display: grid; place-items: center; font-weight: 700; flex: none; }
+.proj-item .nm { flex: 1; font-weight: 600; min-width: 0; overflow: hidden; text-overflow: ellipsis; }
+.proj-item small { color: var(--muted); display: block; font-weight: 500; }
+.new-proj { display: flex; gap: 8px; margin-top: 12px; }
+.new-proj input { flex: 1; }
+.new-proj .btn { flex: 0 0 auto; padding: 0 18px; }
+.link-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--line); }
+.link-row button { font-size: 13px; font-weight: 600; color: var(--muted); padding: 8px 12px; border-radius: 10px; background: var(--bg); }
+.welcome { text-align: center; padding: 70px 10px 20px; }
+.welcome .logo { width: 84px; height: 84px; border-radius: 24px; margin: 0 auto 18px; display: block; box-shadow: var(--shadow); }
+.welcome h1 { margin: 0 0 6px; font-size: 24px; }
+.welcome p { color: var(--muted); margin: 0 0 24px; }
+.welcome .new-proj { max-width: 360px; margin: 0 auto; }
+.toast { position: fixed; left: 50%; bottom: calc(100px + env(safe-area-inset-bottom)); transform: translateX(-50%); background: #151a2d; color: #fff; padding: 10px 16px; border-radius: 12px; font-size: 14px; z-index: 80; opacity: 0; pointer-events: none; transition: opacity .2s; }
+.toast.show { opacity: 1; }
+</style>
+</head>
+<body>
+<div id="app"></div>
+<div class="overlay" id="overlay"><div class="sheet" id="sheet"></div></div>
+<div class="toast" id="toast"></div>
+
+<script>
+"use strict";
+const STATUSES = ["Başlanmadı", "Tasarlandı", "Planlandı", "Paylaşıldı"];
+const TYPES = { post: "Post", story: "Hikaye" };
+const MONTHS = ["Ocak","Şubat","Mart","Nisan","Mayıs","Haziran","Temmuz","Ağustos","Eylül","Ekim","Kasım","Aralık"];
+const DAYS_LONG = ["Pazartesi","Salı","Çarşamba","Perşembe","Cuma","Cumartesi","Pazar"];
+const DAYS_SHORT = ["Pt","Sa","Ça","Pe","Cu","Ct","Pz"];
+const KEY = "medya-takip-v1";
+
+const ICON = {
+  eye: '<svg class="i" viewBox="0 0 24 24"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>',
+  heart: '<svg class="i" viewBox="0 0 24 24"><path d="M12 21s-8-4.9-8-11a4.5 4.5 0 0 1 8-2.8A4.5 4.5 0 0 1 20 10c0 6.1-8 11-8 11z"/></svg>',
+  chat: '<svg class="i" viewBox="0 0 24 24"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/></svg>',
+  chevL: '<svg class="i" viewBox="0 0 24 24" style="width:20px;height:20px"><path d="M15 6l-6 6 6 6"/></svg>',
+  chevR: '<svg class="i" viewBox="0 0 24 24" style="width:20px;height:20px"><path d="M9 6l6 6-6 6"/></svg>',
+  caret: '<svg class="i" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>',
+  more: '<svg class="i" viewBox="0 0 24 24" style="width:20px;height:20px"><circle cx="5" cy="12" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/></svg>',
+};
+
+/* ---------- Yardımcılar ---------- */
+const $ = (id) => document.getElementById(id);
+const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+const uid = () => Math.random().toString(36).slice(2, 10) + Date.now().toString(36).slice(-4);
+const pad = (n) => String(n).padStart(2, "0");
+const iso = (d) => `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
+const parse = (s) => { const [y, m, d] = s.split("-").map(Number); return new Date(y, m - 1, d); };
+const addDays = (d, n) => { const x = new Date(d); x.setDate(x.getDate() + n); return x; };
+const mondayOf = (d) => addDays(d, -((d.getDay() + 6) % 7));
+const fmt = (n) => (n >= 10000 ? (n / 1000).toFixed(n >= 100000 ? 0 : 1).replace(".", ",") + " B" : n.toLocaleString("tr-TR"));
+const num = (v) => Math.max(0, Math.floor(Number(v) || 0));
+const todayIso = () => iso(new Date());
+
+/* ---------- Durum ---------- */
+let state = load();
+function load() {
+  try {
+    const s = JSON.parse(localStorage.getItem(KEY));
+    if (s && Array.isArray(s.projects)) return Object.assign({ activeId: null, view: "week", cursor: todayIso(), selected: todayIso() }, s);
+  } catch (e) {}
+  return { projects: [], activeId: null, view: "week", cursor: todayIso(), selected: todayIso() };
+}
+function save() { try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) { toast("Kaydedilemedi (depolama dolu/kapalı)"); } }
+const project = () => state.projects.find((p) => p.id === state.activeId) || null;
+const entriesOn = (p, date) => p.entries.filter((e) => e.date === date).sort((a, b) => a.type.localeCompare(b.type));
+
+function toast(msg) { const t = $("toast"); t.textContent = msg; t.classList.add("show"); clearTimeout(toast.t); toast.t = setTimeout(() => t.classList.remove("show"), 2200); }
+
+/* ---------- Ekran ---------- */
+function render() {
+  const p = project();
+  const app = $("app");
+  if (!p) {
+    app.innerHTML = `<div class="wrap welcome">
+      <img class="logo" src="icon-192.png" alt="">
+      <h1>Instagram Takip</h1>
+      <p>İlk projeni oluştur (örn. vitrinweb) ve haftalık / aylık içerik planına başla.</p>
+      <form class="new-proj" id="firstForm"><input type="text" id="firstName" placeholder="Proje adı" maxlength="40" required><button class="btn primary">Oluştur</button></form>
+      ${state.projects.length ? '<div class="link-row" style="justify-content:center;border:0"><button id="openProj">Projelerim</button></div>' : ""}
+    </div>`;
+    $("firstForm").onsubmit = (e) => { e.preventDefault(); createProject($("firstName").value); };
+    if ($("openProj")) $("openProj").onclick = openProjects;
+    return;
+  }
+
+  const week = state.view === "week";
+  const cur = parse(state.cursor);
+  let title, sub, items;
+  if (week) {
+    const mon = mondayOf(cur), sun = addDays(mon, 6);
+    title = `${mon.getDate()} ${MONTHS[mon.getMonth()].slice(0, 3)} – ${sun.getDate()} ${MONTHS[sun.getMonth()].slice(0, 3)}`;
+    sub = String(sun.getFullYear());
+    items = p.entries.filter((e) => e.date >= iso(mon) && e.date <= iso(sun));
+  } else {
+    title = `${MONTHS[cur.getMonth()]} ${cur.getFullYear()}`;
+    sub = "";
+    const pre = `${cur.getFullYear()}-${pad(cur.getMonth() + 1)}-`;
+    items = p.entries.filter((e) => e.date.startsWith(pre));
+  }
+  const tot = items.reduce((a, e) => ({ v: a.v + e.views, l: a.l + e.likes, c: a.c + e.comments, s: a.s + (e.status === 3 ? 1 : 0) }), { v: 0, l: 0, c: 0, s: 0 });
+
+  app.innerHTML = `
+  <header><div class="wrap">
+    <div class="top">
+      <button class="proj-btn" id="projBtn"><span class="dot">${esc(p.name.trim().charAt(0).toUpperCase() || "?")}</span><span class="name">${esc(p.name)}</span>${ICON.caret}</button>
+      <button class="icon-btn" id="moreBtn" aria-label="Menü">${ICON.more}</button>
+    </div>
+    <div class="seg header-seg"><button data-v="week" class="${week ? "on" : ""}">Haftalık</button><button data-v="month" class="${week ? "" : "on"}">Aylık</button></div>
+  </div></header>
+  <main class="wrap">
+    <div class="nav">
+      <button class="icon-btn" id="prev" aria-label="Önceki">${ICON.chevL}</button>
+      <h2>${title}${sub ? `<small>${sub}</small>` : ""}</h2>
+      <button class="icon-btn" id="next" aria-label="Sonraki">${ICON.chevR}</button>
+    </div>
+    <div style="text-align:center"><button class="today-btn" id="todayBtn">Bugüne git</button></div>
+    <div class="stats">
+      <div class="stat"><b>${tot.s}/${items.length}</b><span>Paylaşıldı</span></div>
+      <div class="stat"><b>${fmt(tot.v)}</b><span>Görüntülenme</span></div>
+      <div class="stat"><b>${fmt(tot.l)}</b><span>Beğeni</span></div>
+      <div class="stat"><b>${fmt(tot.c)}</b><span>Yorum</span></div>
+    </div>
+    ${week ? weekHtml(p, cur) : monthHtml(p, cur)}
+  </main>
+  <button class="fab" id="fab" aria-label="İçerik ekle"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>Ekle</button>`;
+
+  document.querySelectorAll(".header-seg button").forEach((b) => (b.onclick = () => { state.view = b.dataset.v; save(); render(); }));
+  $("projBtn").onclick = openProjects;
+  $("moreBtn").onclick = openMenu;
+  $("prev").onclick = () => shift(-1);
+  $("next").onclick = () => shift(1);
+  $("todayBtn").onclick = () => { state.cursor = state.selected = todayIso(); save(); render(); };
+  $("fab").onclick = () => openEntry(null, week ? (inCursorWeek(todayIso()) ? todayIso() : iso(mondayOf(cur))) : state.selected);
+  document.querySelectorAll("[data-edit]").forEach((el) => (el.onclick = () => openEntry(el.dataset.edit)));
+  document.querySelectorAll("[data-add]").forEach((el) => (el.onclick = () => openEntry(null, el.dataset.add)));
+  document.querySelectorAll("[data-cycle]").forEach((el) => (el.onclick = (ev) => { ev.stopPropagation(); cycle(el.dataset.cycle); }));
+  document.querySelectorAll("[data-day]").forEach((el) => (el.onclick = () => { state.selected = el.dataset.day; save(); render(); }));
+}
+const inCursorWeek = (d) => { const m = mondayOf(parse(state.cursor)); return d >= iso(m) && d <= iso(addDays(m, 6)); };
+
+function shift(dir) {
+  const c = parse(state.cursor);
+  if (state.view === "week") state.cursor = iso(addDays(c, dir * 7));
+  else { c.setDate(1); c.setMonth(c.getMonth() + dir); state.cursor = iso(c); state.selected = iso(c); }
+  save(); render();
+}
+
+function entryHtml(e) {
+  const metrics = (e.views || e.likes || e.comments || e.status === 3)
+    ? `<div class="e-metrics"><span>${ICON.eye}${fmt(e.views)}</span><span>${ICON.heart}${fmt(e.likes)}</span><span>${ICON.chat}${fmt(e.comments)}</span></div>` : "";
+  return `<div class="entry" role="button" tabindex="0" data-edit="${e.id}">
+    <div class="e-top"><span class="type ${e.type}">${TYPES[e.type]}</span>
+      <button class="pill st${e.status}" data-cycle="${e.id}" aria-label="Durumu değiştir">${STATUSES[e.status]}</button></div>
+    <p class="e-desc ${e.desc ? "" : "none"}">${e.desc ? esc(e.desc) : "Açıklama yok"}</p>
+    ${metrics}${e.notes ? `<div class="e-note">${esc(e.notes)}</div>` : ""}
+  </div>`;
+}
+
+function weekHtml(p, cur) {
+  const mon = mondayOf(cur), t = todayIso();
+  let h = "";
+  for (let i = 0; i < 7; i++) {
+    const d = addDays(mon, i), key = iso(d), list = entriesOn(p, key);
+    h += `<section class="day ${key === t ? "today" : ""}">
+      <div class="day-head"><div class="t">${DAYS_LONG[i]}<small>${d.getDate()} ${MONTHS[d.getMonth()]}</small></div><button class="add-mini" data-add="${key}">+ Ekle</button></div>
+      ${list.length ? list.map(entryHtml).join("") : `<div class="empty-day">Bu gün için içerik yok</div>`}
+    </section>`;
+  }
+  return h;
+}
+
+function monthHtml(p, cur) {
+  const first = new Date(cur.getFullYear(), cur.getMonth(), 1);
+  const start = mondayOf(first), t = todayIso();
+  const weeks = Math.ceil((((first.getDay() + 6) % 7) + new Date(cur.getFullYear(), cur.getMonth() + 1, 0).getDate()) / 7);
+  let cells = DAYS_SHORT.map((d) => `<div class="dow">${d}</div>`).join("");
+  for (let i = 0; i < weeks * 7; i++) {
+    const d = addDays(start, i), key = iso(d), list = entriesOn(p, key);
+    const dots = list.slice(0, 4).map((e) => `<i class="d${e.status}"></i>`).join("");
+    cells += `<button class="cell ${d.getMonth() !== cur.getMonth() ? "out" : ""} ${key === t ? "today" : ""} ${key === state.selected ? "sel" : ""}" data-day="${key}"><span class="n">${d.getDate()}</span><span class="dots">${dots}</span></button>`;
+  }
+  const sel = parse(state.selected), list = entriesOn(p, state.selected);
+  const legend = STATUSES.map((s, i) => `<span><i class="dots" style="display:inline-flex"><i class="d${i}"></i></i>${s}</span>`).join("");
+  return `<div class="cal"><div class="cal-grid">${cells}</div></div>
+    <div class="legend">${legend}</div>
+    <section class="day ${state.selected === t ? "today" : ""}">
+      <div class="day-head"><div class="t">${sel.getDate()} ${MONTHS[sel.getMonth()]}<small>${DAYS_LONG[(sel.getDay() + 6) % 7]}</small></div><button class="add-mini" data-add="${state.selected}">+ Ekle</button></div>
+      ${list.length ? list.map(entryHtml).join("") : `<div class="empty-day">Bu gün için içerik yok</div>`}
+    </section>`;
+}
+
+/* ---------- İşlemler ---------- */
+function createProject(name) {
+  name = (name || "").trim();
+  if (!name) return;
+  const p = { id: uid(), name, entries: [] };
+  state.projects.push(p); state.activeId = p.id;
+  state.cursor = state.selected = todayIso();
+  save(); closeSheet(); render();
+}
+function cycle(id) {
+  const e = project().entries.find((x) => x.id === id);
+  if (!e) return;
+  e.status = (e.status + 1) % 4; save(); render();
+}
+
+/* ---------- Alt sayfalar ---------- */
+function openSheet(html) { $("sheet").innerHTML = html; $("overlay").classList.add("open"); document.body.style.overflow = "hidden"; }
+function closeSheet() { $("overlay").classList.remove("open"); document.body.style.overflow = ""; }
+$("overlay").addEventListener("click", (e) => { if (e.target === $("overlay")) closeSheet(); });
+
+function openEntry(id, date) {
+  const p = project();
+  const ex = id ? p.entries.find((e) => e.id === id) : null;
+  const e = ex || { date: date || todayIso(), type: "post", desc: "", status: 0, views: 0, likes: 0, comments: 0, notes: "" };
+  let status = e.status, type = e.type;
+  openSheet(`
+    <h3>${ex ? "İçeriği düzenle" : "Yeni içerik"}<button class="icon-btn" id="x" aria-label="Kapat">✕</button></h3>
+    <label class="f" style="margin-top:0">Tarih</label>
+    <input type="date" id="fDate" value="${e.date}">
+    <label class="f">İçerik türü</label>
+    <div class="seg" id="fType"><button type="button" data-t="post">Post</button><button type="button" data-t="story">Hikaye</button></div>
+    <label class="f">İçerik açıklaması</label>
+    <textarea id="fDesc" placeholder="Ne paylaşacaksın?">${esc(e.desc)}</textarea>
+    <label class="f">Durum</label>
+    <div class="status-grid" id="fStatus">${STATUSES.map((s, i) => `<button type="button" data-s="${i}" class="st${i}">${s}</button>`).join("")}</div>
+    <div class="row3">
+      <div><label class="f">Görüntülenme</label><input type="number" inputmode="numeric" min="0" id="fViews" value="${e.views || ""}" placeholder="0"></div>
+      <div><label class="f">Beğeni</label><input type="number" inputmode="numeric" min="0" id="fLikes" value="${e.likes || ""}" placeholder="0"></div>
+      <div><label class="f">Yorum</label><input type="number" inputmode="numeric" min="0" id="fComments" value="${e.comments || ""}" placeholder="0"></div>
+    </div>
+    <label class="f">Notlar</label>
+    <textarea id="fNotes" placeholder="Not ekle…" style="min-height:64px">${esc(e.notes)}</textarea>
+    <div class="actions">${ex ? '<button class="btn danger" id="del">Sil</button>' : ""}<button class="btn" id="cancel">Vazgeç</button><button class="btn primary" id="saveBtn">Kaydet</button></div>`);
+
+  const paint = () => {
+    document.querySelectorAll("#fType button").forEach((b) => b.classList.toggle("on", b.dataset.t === type));
+    document.querySelectorAll("#fStatus button").forEach((b) => b.classList.toggle("on", +b.dataset.s === status));
+  };
+  paint();
+  document.querySelectorAll("#fType button").forEach((b) => (b.onclick = () => { type = b.dataset.t; paint(); }));
+  document.querySelectorAll("#fStatus button").forEach((b) => (b.onclick = () => { status = +b.dataset.s; paint(); }));
+  $("x").onclick = $("cancel").onclick = closeSheet;
+  $("saveBtn").onclick = () => {
+    const date = $("fDate").value || todayIso();
+    const data = { date, type, status, desc: $("fDesc").value.trim(), views: num($("fViews").value), likes: num($("fLikes").value), comments: num($("fComments").value), notes: $("fNotes").value.trim() };
+    if (ex) Object.assign(ex, data); else p.entries.push(Object.assign({ id: uid() }, data));
+    state.selected = date;
+    if (state.view === "week") { if (!inCursorWeek(date)) state.cursor = date; }
+    else if (date.slice(0, 7) !== state.cursor.slice(0, 7)) state.cursor = date;
+    save(); closeSheet(); render();
+  };
+  if ($("del")) $("del").onclick = () => {
+    if (!confirm("Bu içerik silinsin mi?")) return;
+    p.entries = p.entries.filter((x) => x.id !== ex.id); save(); closeSheet(); render();
+  };
+}
+
+function openProjects() {
+  openSheet(`
+    <h3>Projeler<button class="icon-btn" id="x" aria-label="Kapat">✕</button></h3>
+    ${state.projects.map((p) => `<button class="proj-item ${p.id === state.activeId ? "on" : ""}" data-p="${p.id}">
+      <span class="dot">${esc(p.name.trim().charAt(0).toUpperCase() || "?")}</span>
+      <span class="nm">${esc(p.name)}<small>${p.entries.length} içerik</small></span></button>`).join("")}
+    <form class="new-proj" id="newForm"><input type="text" id="newName" placeholder="Yeni proje adı" maxlength="40" required><button class="btn primary">Ekle</button></form>`);
+  $("x").onclick = closeSheet;
+  document.querySelectorAll("[data-p]").forEach((b) => (b.onclick = () => { state.activeId = b.dataset.p; save(); closeSheet(); render(); }));
+  $("newForm").onsubmit = (e) => { e.preventDefault(); createProject($("newName").value); };
+}
+
+function openMenu() {
+  const p = project();
+  openSheet(`
+    <h3>${esc(p.name)}<button class="icon-btn" id="x" aria-label="Kapat">✕</button></h3>
+    <div class="link-row" style="margin-top:0;padding-top:0;border:0">
+      <button id="rename">Projeyi yeniden adlandır</button>
+      <button id="delProj" style="color:var(--danger)">Projeyi sil</button>
+    </div>
+    <div class="link-row">
+      <button id="exp">Yedek al (dosya)</button>
+      <button id="imp">Yedekten yükle</button>
+    </div>
+    <p style="color:var(--muted);font-size:12.5px;margin:14px 0 0">Veriler yalnızca bu telefonda saklanır. Telefon değiştirirken veya tarayıcı verilerini silmeden önce yedek al.</p>
+    <input type="file" id="file" accept="application/json,.json" hidden>`);
+  $("x").onclick = closeSheet;
+  $("rename").onclick = () => { const n = (prompt("Proje adı", p.name) || "").trim(); if (n) { p.name = n; save(); closeSheet(); render(); } };
+  $("delProj").onclick = () => {
+    if (!confirm(`"${p.name}" ve tüm içerikleri silinsin mi? Geri alınamaz.`)) return;
+    state.projects = state.projects.filter((x) => x.id !== p.id);
+    state.activeId = state.projects[0]?.id || null; save(); closeSheet(); render();
+  };
+  $("exp").onclick = () => {
+    const blob = new Blob([JSON.stringify({ projects: state.projects }, null, 2)], { type: "application/json" });
+    const a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = `medya-takip-yedek-${todayIso()}.json`; a.click();
+    setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+  };
+  $("imp").onclick = () => $("file").click();
+  $("file").onchange = async (ev) => {
+    try {
+      const data = JSON.parse(await ev.target.files[0].text());
+      if (!Array.isArray(data.projects)) throw 0;
+      if (!confirm("Mevcut tüm veriler yedektekiyle değiştirilsin mi?")) return;
+      state.projects = data.projects; state.activeId = data.projects[0]?.id || null; save(); closeSheet(); render(); toast("Yedek yüklendi");
+    } catch (e) { toast("Geçersiz yedek dosyası"); }
+  };
+}
+
+/* ---------- Başlat ---------- */
+if (!project() && state.projects.length) state.activeId = state.projects[0].id;
+render();
+if ("serviceWorker" in navigator && location.protocol !== "file:") navigator.serviceWorker.register("sw.js").catch(() => {});
+</script>
+</body>
+</html>
